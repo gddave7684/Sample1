@@ -1,0 +1,68 @@
+﻿@Model List<dataTable>
+@{
+    ViewBag.Title = "one";
+}
+
+<style>
+    #container_switch_maintenance {
+        border: 2px solid #f3f4ed;
+        margin-top: 10px;
+        min-height: 200px;
+    }
+        #container_switch_maintenance h1 {
+                color: #e90b0b;
+                font-size: 1.5em;
+                font-weight: bold;
+                margin: 20px;
+        }
+        #container_switch_maintenance hr {
+            border: 1px solid #798777;
+        }
+
+    table {
+        margin: 20px;
+        border-collapse: separate;
+        border-spacing: 1px;
+    }
+        table tr th {
+            background-color: #1597bb;
+            color: white;
+            height: 40px;
+            width: 250px;
+        }
+        table tr th, table tr td{
+            padding: 15px;
+        }
+</style>
+<div id="container_switch_maintenance">
+    <h1>SWITCH MAINTENANCE</h1>
+    <hr />
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Status</th>
+        </tr>
+
+        @foreach (var rawData in Model)
+        {
+            <tr>
+                <td>@rawData.Name</td>
+                <td>@rawData.Description</td>
+                @if (@rawData.Status == true)
+                {
+                    <td>Active</td>
+                }
+                else
+                {
+                    <td>Inactive</td>
+                }
+            </tr>
+        }
+
+       
+    </table>
+
+</div>
+
