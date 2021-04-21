@@ -1,34 +1,76 @@
 ﻿@Model List<dataTable>
-@{
-    ViewBag.Title = "Task 1";
-}
+    @{
+        ViewBag.Title = "Task 1";
+    }
 
-<div id="container_switch_maintenance">
-    <h1>SWITCH MAINTENANCE</h1>
-    <hr />
+    <div id="container_switch_maintenance">
+        <h1>SWITCH MAINTENANCE</h1>
+        <hr />
 
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Status</th>
-        </tr>
-
-        @foreach (var rawData in Model)
-        {
+        <table id="tblRaw">
             <tr>
-                <td>@rawData.Name</td>
-                <td>@rawData.Description</td>
-                @if (@rawData.Status == true)
-                {
-                    <td>Active</td>
-                }
-                else
-                {
-                    <td>Inactive</td>
-                }
+                <th>Name</th>
+                <th>Description</th>
+                <th>Status</th>
             </tr>
-        }     
-    </table>
-</div>
 
+            @foreach (var rawData in Model)
+            {
+                <tr class="dataFromRow" data-toggle="modal" data-target="#myModal">
+                    <td>@rawData.Name</td>
+                    <td>@rawData.Description</td>
+                    @if (@rawData.Status == true)
+                    {
+                        <td>Active</td>
+                    }
+                    else
+                    {
+                        <td>Inactive</td>
+                    }
+                </tr>
+            }
+        </table>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" id="modalHeaderId">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_Close_Modal"><span aria-hidden="true">&times;</span></button>
+                        <span class="modal-title" id="myModalLabelDetails">Details</span>
+                        <span class="modal-title" id="myModalLabelHistory">History</span>
+                    </div>
+                    <div class="modal-body">
+                        <table id="tblExpanded">
+                            <tr>
+                                <td>Name:</td>
+                                <td id="toModalName"></td>
+                            </tr>
+                            <tr>
+                                <td>Description:</td>
+                                <td id="toModalDescription">Description</td>
+                            </tr>
+                            <tr>
+                                <td>Status:</td>
+                                <td id="toModalStatus">
+                                    <!--Switch -->
+                                    <label class="switch">
+                                        <input type="checkbox" id="status">
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <!--END Switch-->
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary pull-left" id="btn_Save">SAVE</button>
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal" id="btn_Cancel">CANCEL</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
+
+    </div> <!--END OUTER DIV-->

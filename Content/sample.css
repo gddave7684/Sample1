@@ -15,19 +15,143 @@
         border: 1px solid #798777;
     }
 
-table {
+#tblRaw {
     margin: 20px;
     border-collapse: separate;
     border-spacing: 1px;
 }
 
-    table tr th {
+    #tblRaw tr th {
         background-color: #1597bb;
         color: white;
         height: 40px;
-        width: 250px;
+        width: 400px;
     }
 
-    table tr th, table tr td {
+    #tblRaw tr th, #tblRaw tr td {
         padding: 15px;
     }
+
+    #tblRaw tr {
+        cursor: pointer;
+    }
+
+    #tblRaw tr:nth-child(1){
+        cursor:default;
+    }
+
+    #tblRaw tr:hover {
+        background-color: #b1afaf;
+    }
+
+#tblExpanded {
+    margin: 20px;
+    border-collapse: separate;
+    border-spacing: 1px;
+}
+
+    #tblExpanded tr th {
+        background-color: #1597bb;
+        color: white;
+        height: 40px;
+        width: 400px;
+    }
+
+    #tblExpanded tr td {
+        padding: 15px;
+    }
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+
+#myModalLabelDetails, #myModalLabelHistory{
+    cursor: pointer;
+}
+
+#myModalLabelDetails {
+    border-bottom: 3px solid #eb5a5a;
+    font-weight: bold;
+    padding: 12.5px;
+    color: #eb5a5a;
+}
+
+#myModalLabelHistory {
+    color: #798777;
+    padding: 12.5px;
+    font-weight: bold;
+}
+
+#btn_Save {
+    background-color: #eb5a5a !important;
+    width: 150px !important;
+    border: 1px solid #eb5a5a !important;
+    font-weight: bold;
+}
+
+#btn_Cancel {
+    background-color: #fff !important;
+    width: 150px !important;
+    border: 1px solid #eb5a5a !important;
+    color: #eb5a5a !important;
+    font-weight: bold;
+}
+
+#btn_Save, #btn_Cancel, #btn_Close_Modal {
+    outline: none;
+}

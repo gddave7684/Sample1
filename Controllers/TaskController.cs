@@ -40,5 +40,10 @@ namespace SampleTask1.Controllers
 
             return View(model);
         }
+
+        public ActionResult ModalView()
+        {
+            return View();
+        }
     }
 }
