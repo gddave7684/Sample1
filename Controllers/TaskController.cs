@@ -16,12 +16,11 @@ namespace SampleTask1.Controllers
         // GET: Task 
         public ActionResult one()
         {
-            String connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Tasks;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            String cs = ConfigurationManager.ConnectionStrings["DBRPS"].ConnectionString;
             String sql = "SELECT * FROM dbo.Switches";
            
-
             List<dataTable> model = new List<dataTable>();
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(cs))
             {
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 conn.Open();

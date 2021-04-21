@@ -14,15 +14,9 @@ namespace SampleTask1
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Task",
-                url: "tasks/{action}",
-                defaults: new { controller = "task1", action = "Index", id = UrlParameter.Optional }
-            );
-
-            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Task", action = "one", id = UrlParameter.Optional }
             );
         }
     }
