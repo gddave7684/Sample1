@@ -1,35 +1,15 @@
-﻿@Model List<dataTable>
+﻿@Model List<SwitchDataTable>
     @{
         ViewBag.Title = "Task 1";
     }
-
     <div id="container_switch_maintenance">
         <h1>SWITCH MAINTENANCE</h1>
+        <button data-toggle="modal" data-target="#exampleModalCenter" id="btn_Add">Add Switch</button>
+
         <hr />
-
-        <table id="tblRaw">
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Status</th>
-            </tr>
-
-            @foreach (var rawData in Model)
-            {
-                <tr class="dataFromRow" data-toggle="modal" data-target="#myModal">
-                    <td>@rawData.Name</td>
-                    <td>@rawData.Description</td>
-                    @if (@rawData.Status == true)
-                    {
-                        <td>Active</td>
-                    }
-                    else
-                    {
-                        <td>Inactive</td>
-                    }
-                </tr>
-            }
-        </table>
+        <div id="tblPartial">
+            @Html.Partial("_SwitchTable")
+        </div>
 
         <!-- Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -48,29 +28,69 @@
                             </tr>
                             <tr>
                                 <td>Description:</td>
-                                <td id="toModalDescription">Description</td>
+                                <td id="toModalDescription"></td>
                             </tr>
                             <tr>
                                 <td>Status:</td>
                                 <td id="toModalStatus">
-                                    <!--Switch -->
-                                    <label class="switch">
-                                        <input type="checkbox" id="status">
-                                        <span class="slider round"></span>
-                                    </label>
-                                    <!--END Switch-->
+                                    <form id="updateSwitch">
+                                        <!--Switch -->
+                                        <label class="switch">
+                                            <input type="checkbox" id="status" name="updateStatus">
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <!--END Switch-->
+                                    </form>
                                 </td>
                             </tr>
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary pull-left" id="btn_Save">SAVE</button>
+                        <button type="button" class="btn btn-primary pull-left" data-dismiss="modal" id="btn_Save">SAVE</button>
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal" id="btn_Cancel">CANCEL</button>
+
+                        <button type="button" class="btn btn-danger pull-right" id="btn_Delete" data-dismiss="modal">DELETE</button>
                     </div>
                 </div>
             </div>
         </div>
         <!-- End Modal -->
+        <!--Modal Add-->
+        <div class="modal fade" id="exampleModalCenter">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Create New</h4>
+                    </div>
+                    <div class="modal-body">
 
+                        <form id="toInsertData">
+                            <div class="form-group">
+                                <label for="exampleInputName">Switch Name</label>
+                                <input type="text" class="form-control" id="exampleInputName" placeholder="Name" name="inName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputDescription">Switch Description</label>
+                                <input type="text" class="form-control" id="exampleInputDescription" placeholder="Description" name="inDescription" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputStatus">Switch Status</label><br /><br />
+                                <!--Switch -->
+                                <label class="switch">
+                                    <input type="checkbox" id="addStatus" name="inStatus">
+                                    <span class="slider round"></span>
+                                </label>
+                                <!--END Switch-->
+                            </div>
+                            <button class="btn btn-default" id="switchCreate">Create</button>
+                        </form>
 
+                    </div>
+
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!--EndModal Add-->
     </div> <!--END OUTER DIV-->
+    

@@ -1,16 +1,68 @@
-﻿var table = document.getElementById('tblRaw'), rIndex;
-for (var i = 0; i < table.rows.length; i++) {
-    table.rows[i].onclick = function () {
-        rIndex = this.rowIndex;
-        document.getElementById('toModalName').innerHTML = this.cells[0].textContent;
-        document.getElementById('toModalDescription').innerHTML = this.cells[1].textContent;
-        var status = this.cells[2].textContent;
-        if (status == "Active") {
-            document.getElementById('status').checked = true;
-        }
-        else if (status == "Inactive") {
-            document.getElementById('status').checked = false;
-        }
+﻿$(document).ready(function () {
 
-    };
-}
+    var refName;
+
+    $(document).on('click', '.dataFromRow', function () {
+        //alert($('tr').index(this));
+        document.getElementById('toModalName').innerHTML = this.cells[0].textContent;
+        refName = this.cells[0].textContent;
+    });
+
+    $("#switchCreate").click(function () {
+        var data = $("#toInsertData").serialize();
+        $.post({
+            url: "/Task/PostNewData",
+            data: data,
+            success: function (data) {
+                alert(data.status);
+                if (data.status == "ok") {
+                    $("#tblPartial").load("/Task/GetView", { viewName: "_SwitchTable" });
+                }
+            }
+        });
+    }); //END
+
+
+    $("#btn_Delete").click(function () {
+
+        var nameTodelete = refName;
+        var confirmDelete = confirm("Delete switch?");
+
+        var obj = { nameTodelete: nameTodelete};
+        var data = $.param(obj);
+        if (confirmDelete) {
+            $.ajax({
+                url: "/Task/DeleteSwitch",
+                data: data,
+                success: function (data) {
+                    if (data.status == "ok") {
+                        $("#tblPartial").load("/Task/GetView", { viewName: "_SwitchTable" });
+                    }
+                }
+            });
+        }
+    }); //END
+
+
+    $("#btn_Save").click(function () {
+        var updateStatus = $('#status').is(':checked');
+        var obj = { updateStatus: updateStatus, refName: refName };
+        var encodedRecursively = $.param(obj);
+
+        //debugger
+        $.ajax({
+            url:"/Task/SwitchUpdate",
+            data: encodedRecursively,
+            success: function (data) {
+                if (data.status == "ok") {
+                    $("#tblPartial").load("/Task/GetView", { viewName: "_SwitchTable" });                
+                }
+            },
+            error: function (error) {
+
+            }
+        });
+    }); //END
+
+});
+

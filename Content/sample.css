@@ -28,7 +28,16 @@
         width: 400px;
     }
 
-    #tblRaw tr th, #tblRaw tr td {
+    #tblRaw tr th:nth-child(4) {
+        text-align:center;
+    }
+    
+    #tblRaw tr td:nth-child(4) {
+        text-align: center;
+    }
+
+
+    #tblRaw tr th, #tblRaw tr td, #tblRaw thead tr th {
         padding: 15px;
     }
 
@@ -36,13 +45,13 @@
         cursor: pointer;
     }
 
-    #tblRaw tr:nth-child(1){
-        cursor:default;
-    }
+        #tblRaw tr:nth-child(1) {
+            cursor: default;
+        }
 
-    #tblRaw tr:hover {
-        background-color: #b1afaf;
-    }
+        #tblRaw tr:hover {
+            background-color: #b1afaf;
+        }
 
 #tblExpanded {
     margin: 20px;
@@ -67,6 +76,7 @@
     width: 60px;
     height: 34px;
 }
+
     .switch input {
         opacity: 0;
         width: 0;
@@ -120,7 +130,7 @@ input:checked + .slider:before {
         border-radius: 50%;
     }
 
-#myModalLabelDetails, #myModalLabelHistory{
+#myModalLabelDetails, #myModalLabelHistory {
     cursor: pointer;
 }
 
@@ -152,6 +162,30 @@ input:checked + .slider:before {
     font-weight: bold;
 }
 
-#btn_Save, #btn_Cancel, #btn_Close_Modal {
+#btn_Save, #btn_Cancel, #btn_Close_Modal, #btn_Add, #btnClose_forAdd, #btnCreate_forAdd {
     outline: none;
+}
+
+#btn_Add {
+    padding: 10px;
+    background-color: #2196F3;
+    width: 150px;
+    font-weight: bold;
+    margin-left: 20px;
+    border: 2px solid #2196F3;
+    color: white;
+}
+
+    #btn_Add:hover {
+        background-color: #0087C1;
+        border: 2px solid #0087C1;
+        transition: .3s;
+    }
+
+
+.btnEdit{
+
+}
+.btnDelete{
+    margin-left: 15px;
 }
