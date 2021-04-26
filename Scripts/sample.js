@@ -5,21 +5,28 @@
     $(document).on('click', '.dataFromRow', function () {
         //alert($('tr').index(this));
         document.getElementById('toModalName').innerHTML = this.cells[0].textContent;
-        refName = this.cells[0].textContent;
+        refName = this.cells[0].textContent; 
     });
 
     $("#switchCreate").click(function () {
         var data = $("#toInsertData").serialize();
         $.post({
+            method: "POST",
             url: "/Task/PostNewData",
             data: data,
+            dataType: "json",
+            cache: false,
             success: function (data) {
-                alert(data.status);
                 if (data.status == "ok") {
                     $("#tblPartial").load("/Task/GetView", { viewName: "_SwitchTable" });
                 }
-            }
+            },
         });
+
+        $(function () {
+            $('#exampleModalCenter').modal('toggle');
+        });
+        return false;
     }); //END
 
 
