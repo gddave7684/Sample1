@@ -3,6 +3,12 @@
     //global
     var refName;
 
+    function reloadPartial(status) {
+        if (status == "ok") {
+            $("#tblPartial").load("/Task/GetView", { viewName: "_SwitchTable" });
+        }
+    }
+
     $(document).on('click', '#tblRaw .dataFromRow', function () {
         //console.log($('tr').index(this)) // uncomment for debugging;
 
@@ -17,9 +23,7 @@
         var data = $("#toInsertData").serialize();
 
         $.post("/Task/PostNewData", data, function (response) {
-            if (response.status == "ok") {
-                $("#tblPartial").load("/Task/GetView", { viewName: "_SwitchTable" });
-            }
+            reloadPartial(response.status);
         });
 
         $(function () {
@@ -38,9 +42,7 @@
         var data = $.param({ nameTodelete: nameTodelete });
         if (confirmDelete) {
             $.post("/Task/DeleteSwitch", data, function (response) {
-                if (response.status == "ok") {
-                    $("#tblPartial").load("/Task/GetView", { viewName: "_SwitchTable" });
-                }
+                reloadPartial(response.status);
             });
            
         }
@@ -51,9 +53,7 @@
         var encodedRecursively = $.param({ updateStatus: updateStatus, refName: refName });
 
         $.post("/Task/SwitchUpdate", encodedRecursively, function (response) {
-            if (response.status == "ok") {
-                $("#tblPartial").load("/Task/GetView", { viewName: "_SwitchTable" });
-            }
+            reloadPartial(response.status);
         });
     }); //END SwitchUpdate
 
