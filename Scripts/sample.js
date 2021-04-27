@@ -22,6 +22,11 @@
             }
         });
 
+        $(function () {
+            $('#exampleModalCenter').modal('toggle');
+        });
+
+        return false;
     }); //END PostNewData
 
 
