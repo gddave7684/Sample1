@@ -1,75 +1,56 @@
 ﻿$(document).ready(function () {
 
+    //global
     var refName;
 
-    $(document).on('click', '.dataFromRow', function () {
-        //alert($('tr').index(this));
-        document.getElementById('toModalName').innerHTML = this.cells[0].textContent;
+    $(document).on('click', '#tblRaw .dataFromRow', function () {
+        //console.log($('tr').index(this)) // uncomment for debugging;
+
         refName = this.cells[0].textContent; 
+        document.getElementById('toModalName').innerHTML = this.cells[0].textContent;
+        document.getElementById('toModalDescription').innerHTML = this.cells[1].textContent;
+        document.getElementById('toStatus').checked = ( this.cells[2].textContent == "Active") ? true : false;       
+
     });
 
     $("#switchCreate").click(function () {
         var data = $("#toInsertData").serialize();
-        $.post({
-            method: "POST",
-            url: "/Task/PostNewData",
-            data: data,
-            dataType: "json",
-            cache: false,
-            success: function (data) {
-                if (data.status == "ok") {
-                    $("#tblPartial").load("/Task/GetView", { viewName: "_SwitchTable" });
-                }
-            },
+
+        $.post("/Task/PostNewData", data, function (response) {
+            if (response.status == "ok") {
+                $("#tblPartial").load("/Task/GetView", { viewName: "_SwitchTable" });
+            }
         });
 
-        $(function () {
-            $('#exampleModalCenter').modal('toggle');
-        });
-        return false;
-    }); //END
+    }); //END PostNewData
 
 
     $("#btn_Delete").click(function () {
 
         var nameTodelete = refName;
-        var confirmDelete = confirm("Delete switch?");
+        var confirmDelete = confirm("Delete switch " + nameTodelete + " ?");
 
-        var obj = { nameTodelete: nameTodelete};
-        var data = $.param(obj);
+        var data = $.param({ nameTodelete: nameTodelete });
         if (confirmDelete) {
-            $.ajax({
-                url: "/Task/DeleteSwitch",
-                data: data,
-                success: function (data) {
-                    if (data.status == "ok") {
-                        $("#tblPartial").load("/Task/GetView", { viewName: "_SwitchTable" });
-                    }
+            $.post("/Task/DeleteSwitch", data, function (response) {
+                if (response.status == "ok") {
+                    $("#tblPartial").load("/Task/GetView", { viewName: "_SwitchTable" });
                 }
             });
+           
         }
-    }); //END
-
+    }); //END DeleteSwitch
 
     $("#btn_Save").click(function () {
-        var updateStatus = $('#status').is(':checked');
-        var obj = { updateStatus: updateStatus, refName: refName };
-        var encodedRecursively = $.param(obj);
+        var updateStatus = $('#toStatus').is(':checked');
+        var encodedRecursively = $.param({ updateStatus: updateStatus, refName: refName });
 
-        //debugger
-        $.ajax({
-            url:"/Task/SwitchUpdate",
-            data: encodedRecursively,
-            success: function (data) {
-                if (data.status == "ok") {
-                    $("#tblPartial").load("/Task/GetView", { viewName: "_SwitchTable" });                
-                }
-            },
-            error: function (error) {
-
+        $.post("/Task/SwitchUpdate", encodedRecursively, function (response) {
+            if (response.status == "ok") {
+                $("#tblPartial").load("/Task/GetView", { viewName: "_SwitchTable" });
             }
         });
-    }); //END
+    }); //END SwitchUpdate
 
-});
+});//END document.ready
 
